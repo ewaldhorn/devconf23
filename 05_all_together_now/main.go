@@ -26,6 +26,7 @@ func init() {
 type Game struct {
 	gopherX, gopherY         int
 	gopherXIncr, gopherYIncr int
+	gopherAngle              float64
 }
 
 func (g *Game) Update() error {
@@ -34,18 +35,21 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) updateGopherPosition() {
-	if g.gopherX > 620 || g.gopherX < 5 {
+	if g.gopherX > 800 || g.gopherX < 5 {
 		g.gopherXIncr *= -1
+		g.gopherAngle = 0.0
 	}
 
 	g.gopherX += g.gopherXIncr
 
-	if g.gopherY > 450 || g.gopherY < 5 {
+	if g.gopherY > 600 || g.gopherY < 5 {
 		g.gopherYIncr *= -1
 	}
 
 	g.gopherX += g.gopherXIncr
 	g.gopherY += g.gopherYIncr
+
+	g.gopherAngle += 0.001
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
@@ -56,6 +60,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	gopherDrawingOptions := &ebiten.DrawImageOptions{}
 	gopherDrawingOptions.GeoM.Translate(float64(g.gopherX), float64(g.gopherY))
 	gopherDrawingOptions.GeoM.Scale(0.5, 0.5)
+	gopherDrawingOptions.GeoM.Rotate(g.gopherAngle)
 	screen.DrawImage(gopherImage, gopherDrawingOptions)
 }
 
