@@ -11,6 +11,10 @@ that's not exactly known for being fun, even though it's well-respected for doin
 of course referring to Go, which, at first glance, is a serious enterprise-style language. But hey,
 nobody said we couldn't use it for other stuff!
 
+## Get the Code
+
+Available on [https://github.com/ewaldhorn/devconf23](https://github.com/ewaldhorn/devconf23)
+
 ## Technologies used
 
 In order to make this all work, I have to stand on the shoulders of some giants:
