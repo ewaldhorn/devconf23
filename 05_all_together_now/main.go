@@ -81,7 +81,7 @@ func initGame() *Game {
 }
 
 func main() {
-	ebiten.SetTPS(60)
+	ebiten.SetTPS(25)
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Whoo Whoo!")
 

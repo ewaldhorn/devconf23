@@ -14,7 +14,9 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	g.drawCircle(screen, 160, 100, 50, color.RGBA{R: 128, G: 255, B: 128, A: 255})
+	for radius := 10; radius < 70; radius += 2 {
+		g.drawCircle(screen, 160, 100, radius, color.RGBA{R: 128, G: 255, B: 128, A: 255})
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
