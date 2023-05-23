@@ -2,9 +2,14 @@ package main
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/vector"
 	"image/color"
 	"math"
 	"math/rand"
+)
+
+var (
+	circleShader *ebiten.Shader
 )
 
 const (
@@ -79,16 +84,33 @@ func (g *Game) Update() error {
 	return nil
 }
 
-func (g *Game) drawCircle(screen *ebiten.Image, x, y, radius int, clr color.Color) {
-	radius64 := float64(radius)
-	minAngle := math.Acos(1 - 1/radius64)
-	for angle := float64(0); angle <= 360; angle += minAngle {
-		xDelta := radius64 * math.Cos(angle)
-		yDelta := radius64 * math.Sin(angle)
-		x1 := int(math.Round(float64(x) + xDelta))
-		y1 := int(math.Round(float64(y) + yDelta))
-		screen.Set(x1, y1, clr)
+// Improved draw and fill circle from https://golangprojectstructure.com/creating-cool-games-with-ebiten-in-go/
+// This time, using shaders! Because really, this is where we want to be.
+func (g *Game) drawCircle(screen *ebiten.Image, x, y, radius int, clr color.RGBA) {
+	var path vector.Path
+
+	path.MoveTo(float32(x), float32(y))
+	path.Arc(float32(x), float32(y), float32(radius), 0, math.Pi*2, vector.Clockwise)
+
+	vertices, indices := path.AppendVerticesAndIndicesForFilling(nil, nil)
+
+	redScaled := float32(clr.R) / 255
+	greenScaled := float32(clr.G) / 255
+	blueScaled := float32(clr.B) / 255
+	alphaScaled := float32(clr.A) / 255
+
+	for i := range vertices {
+		v := &vertices[i]
+
+		v.ColorR = redScaled
+		v.ColorG = greenScaled
+		v.ColorB = blueScaled
+		v.ColorA = alphaScaled
 	}
+
+	screen.DrawTrianglesShader(vertices, indices, circleShader, &ebiten.DrawTrianglesShaderOptions{
+		FillRule: ebiten.EvenOdd,
+	})
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
@@ -99,9 +121,24 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 }
 
+func init() {
+	var err error
+
+	circleShader, err = ebiten.NewShader([]byte(`
+		package main
+
+		func Fragment(position vec4, texCoord vec2, color vec4) vec4 {
+			return color
+		}
+	`))
+	if err != nil {
+		panic(err)
+	}
+}
+
 func main() {
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2)
-	ebiten.SetWindowTitle("Round and round we go!")
+	ebiten.SetWindowTitle("Rounders all around!")
 
 	game := Game{}
 	game.initBouncers()
