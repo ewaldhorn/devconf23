@@ -2,13 +2,20 @@ package main
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"log"
-
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	_ "image/png"
+	"log"
 )
 
-// See https://ebitengine.org/en/tour/hello_world.html for the original.
-// I took some slight liberties with the code for this talk.
+var img *ebiten.Image
+
+func init() {
+	var err error
+	img, _, err = ebitenutil.NewImageFromFile("assets/devconfTitle.png")
+	if err != nil {
+		log.Fatal(err)
+	}
+}
 
 type Game struct{}
 
@@ -17,16 +24,16 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Hello Cape Town!")
+	screen.DrawImage(img, nil)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 100, 50
+	return 850, 300
 }
 
 func main() {
-	ebiten.SetWindowSize(320, 200)
-	ebiten.SetWindowTitle("DevConf 2023")
+	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowTitle("Who Dis?")
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		log.Fatal(err)
 	}

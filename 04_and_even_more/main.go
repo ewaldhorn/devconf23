@@ -2,13 +2,9 @@ package main
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"image/color"
 	"log"
-
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
-
-// See https://ebitengine.org/en/tour/hello_world.html for the original.
-// I took some slight liberties with the code for this talk.
 
 type Game struct{}
 
@@ -17,16 +13,21 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Hello Cape Town!")
+	for x := 100; x < 200; x++ {
+		for y := 100; y < 200; y++ {
+			col := color.RGBA{R: uint8(x), G: 0, B: uint8(y), A: 255}
+			screen.Set(x, y, col)
+		}
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 100, 50
+	return outsideWidth, outsideHeight
 }
 
 func main() {
-	ebiten.SetWindowSize(320, 200)
-	ebiten.SetWindowTitle("DevConf 2023")
+	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowTitle("The what now?")
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		log.Fatal(err)
 	}
