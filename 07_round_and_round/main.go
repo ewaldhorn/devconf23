@@ -11,7 +11,7 @@ const (
 	screenWidth  = 400
 	screenHeight = 400
 	bouncerSize  = 4
-	bouncerCount = 30
+	bouncerCount = 50
 )
 
 type Bouncer struct {
