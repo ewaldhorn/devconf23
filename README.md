@@ -23,6 +23,11 @@ In order to make this all work, I have to stand on the shoulders of some giants:
 I really recommend you check you [FreeCodeCamp's Go Course](https://www.youtube.com/watch?v=un6ZyFkqFKo)
 on YouTube if you are interested in learning Go.
 
+## EbitEngine Cheat Sheet
+
+If you plan on using EbitEngine, take a look at [their cheat sheet](https://ebitengine.org/en/documents/cheatsheet.html),
+it really helps a lot!
+
 ### Recommended Code Editors/IDEs
 
 I prefer Goland, but I know not everyone has access to it and I test that everything I do works
