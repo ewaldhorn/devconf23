@@ -27,7 +27,10 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 func main() {
 	ebiten.SetWindowSize(320, 200)
 	ebiten.SetWindowTitle("DevConf 2023")
-	if err := ebiten.RunGame(&Game{}); err != nil {
+
+	err := ebiten.RunGame(&Game{})
+
+	if err != nil {
 		log.Fatal(err)
 	}
 }
