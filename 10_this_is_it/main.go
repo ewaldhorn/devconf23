@@ -81,7 +81,7 @@ func (g *Game) Update() error {
 	for _, key := range g.pressedKeys {
 		switch key.String() {
 		case "ArrowDown":
-			if lineWidth > 0.25 {
+			if lineWidth > 0.5 {
 				lineWidth -= 0.25
 			}
 		case "ArrowUp":
