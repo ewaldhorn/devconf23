@@ -15,6 +15,10 @@ nobody said we couldn't use it for other stuff!
 
 Available on [https://github.com/ewaldhorn/devconf23](https://github.com/ewaldhorn/devconf23)
 
+## See the lame talk
+
+It's on the Tube! [https://www.youtube.com/watch?v=-etMQe-iDco](https://www.youtube.com/watch?v=-etMQe-iDco)
+
 ## Technologies used
 
 In order to make this all work, I have to stand on the shoulders of some giants:
